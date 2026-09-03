@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitab Thaharah — Teks Arab, Terjemahan &amp; Penjelasan</title>
+<style>
+@font-face {
+  font-family: 'Scheherazade New';
+  font-weight: 400;
+  font-style: normal;
+  src: url(data:font/woff2;base64,__FONT_REGULAR__) format('woff2');
+}
+@font-face {
+  font-family: 'Scheherazade New';
+  font-weight: 700;
+  font-style: normal;
+  src: url(data:font/woff2;base64,__FONT_BOLD__) format('woff2');
+}
+
+:root{
+  --bg: #FAF6EC;
+  --bg-card: #FFFFFF;
+  --bg-arabic: #FFFDF5;
+  --primary: #0F5132;
+  --primary-dark: #0A3B24;
+  --accent: #B8860B;
+  --accent-soft: #E8D9AC;
+  --text: #2B2A26;
+  --text-soft: #5B5748;
+  --border: #E3D6A8;
+  --border-soft: #EDE6CC;
+  --shadow: 0 2px 10px rgba(15,81,50,0.08);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: 'Segoe UI', 'Poppins', Tahoma, Arial, sans-serif;
+  line-height:1.65;
+}
+
+/* ===== Header ===== */
+header.hero{
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color:#F7F3E3;
+  padding:44px 20px 34px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+header.hero::before, header.hero::after{
+  content:"";
+  position:absolute;
+  width:220px;height:220px;
+  border:2px solid rgba(247,243,227,0.12);
+  border-radius:50%;
+  top:-90px; left:-70px;
+}
+header.hero::after{ top:auto; bottom:-110px; right:-80px; left:auto; }
+.hero-inner{ position:relative; z-index:2; max-width:820px; margin:0 auto; }
+.hero-kicker{
+  letter-spacing:3px;
+  font-size:12.5px;
+  text-transform:uppercase;
+  color:var(--accent-soft);
+  margin-bottom:10px;
+  font-weight:600;
+}
+.hero-arabic{
+  font-family:'Scheherazade New', serif;
+  font-size:56px;
+  font-weight:700;
+  line-height:1.3;
+  margin:6px 0 10px;
+  direction:rtl;
+}
+.hero-title{ font-size:26px; font-weight:700; margin:4px 0 8px; }
+.hero-sub{ font-size:15px; color:#DCE8DE; max-width:600px; margin:0 auto; opacity:0.92; }
+
+/* ===== Nav / TOC ===== */
+nav.toc-wrap{
+  background:var(--bg-card);
+  border-bottom:1px solid var(--border-soft);
+  position:sticky; top:0; z-index:50;
+  box-shadow:var(--shadow);
+}
+.toc-bar{
+  max-width:980px; margin:0 auto;
+  padding:10px 18px;
+  display:flex; align-items:center; gap:12px;
+}
+.toc-bar button{
+  background:var(--primary);
+  color:#fff; border:none; border-radius:8px;
+  padding:8px 14px; font-size:13.5px; cursor:pointer;
+  font-weight:600;
+}
+.toc-bar span.toc-label{ font-size:13.5px; color:var(--text-soft); }
+#tocPanel{
+  max-width:980px; margin:0 auto;
+  display:none;
+  padding:6px 18px 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap:8px;
+}
+#tocPanel.open{ display:grid; }
+#tocPanel a{
+  display:block;
+  padding:9px 12px;
+  background:var(--bg);
+  border:1px solid var(--border-soft);
+  border-radius:8px;
+  color:var(--primary-dark);
+  text-decoration:none;
+  font-size:13.5px;
+  font-weight:600;
+}
+#tocPanel a:hover{ background:var(--accent-soft); }
+
+/* ===== Main container ===== */
+main{ max-width:900px; margin:0 auto; padding:30px 18px 60px; }
+
+section.fasl{
+  background:var(--bg-card);
+  border:1px solid var(--border-soft);
+  border-radius:16px;
+  margin-bottom:34px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  scroll-margin-top:70px;
+}
+.fasl-head{
+  background: linear-gradient(90deg, var(--primary) 0%, #146C41 100%);
+  color:#fff;
+  padding:16px 22px;
+  display:flex; align-items:center; gap:14px;
+}
+.fasl-num{
+  background:var(--accent);
+  color:#3B2B00;
+  font-weight:800;
+  border-radius:50%;
+  width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  font-size:15px;
+}
+.fasl-titles{ display:flex; flex-direction:column; gap:2px; }
+.fasl-title-id{ font-size:17px; font-weight:700; }
+.fasl-title-ar{ font-family:'Scheherazade New', serif; font-size:20px; direction:rtl; color:#E7F3EA; }
+
+.block{ padding:20px 22px; border-top:1px solid var(--border-soft); }
+.block:first-of-type{ border-top:none; }
+.block-label{
+  font-size:11.5px; letter-spacing:1.5px; text-transform:uppercase;
+  font-weight:700; color:var(--accent); margin-bottom:10px;
+}
+
+.arabic-box{
+  background:var(--bg-arabic);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:22px 26px;
+  direction:rtl;
+  text-align:right;
+  font-family:'Scheherazade New', serif;
+  font-size:26px;
+  line-height:2.15;
+  color:#1E1B12;
+}
+.arabic-box .fn{
+  font-size:15px;
+  vertical-align:super;
+  color:var(--accent);
+}
+
+.translate-box{
+  background:#F4FAF5;
+  border-inline-start:4px solid var(--primary);
+  border-radius:8px;
+  padding:16px 20px;
+  font-size:15.5px;
+  color:#233A2C;
+}
+.translate-box b{ color:var(--primary-dark); }
+
+.explain-box{ font-size:15px; color:var(--text); }
+.explain-box h4{
+  font-size:15px; color:var(--primary-dark); margin:16px 0 6px;
+  border-bottom:2px solid var(--border-soft); padding-bottom:4px;
+}
+.explain-box h4:first-child{ margin-top:0; }
+.explain-box ul, .explain-box ol{ margin:6px 0 10px 0; padding-inline-start:22px; }
+.explain-box li{ margin-bottom:5px; }
+.explain-box p{ margin:8px 0; }
+.explain-box table{ width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:14px; }
+.explain-box th, .explain-box td{ border:1px solid var(--border); padding:7px 10px; text-align:start; }
+.explain-box th{ background:var(--accent-soft); color:#3B2B00; }
+.explain-box .note{
+  background:#FFF8E8; border:1px dashed var(--accent);
+  border-radius:8px; padding:10px 14px; font-size:14px; margin-top:10px;
+}
+.explain-box .arabic-inline{ font-family:'Scheherazade New', serif; font-size:19px; direction:rtl; }
+
+/* ===== Footer ===== */
+footer{
+  background:var(--primary-dark);
+  color:#DCE8DE;
+  text-align:center;
+  padding:26px 16px;
+  font-size:13.5px;
+  margin-top:20px;
+}
+footer .heart{ color:var(--accent-soft); }
+
+/* ===== back to top ===== */
+#backTop{
+  position:fixed; bottom:22px; inset-inline-end:22px;
+  background:var(--primary); color:#fff;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,0.25);
+  text-decoration:none; font-size:18px;
+  opacity:0; pointer-events:none; transition:opacity .2s;
+}
+#backTop.show{ opacity:1; pointer-events:auto; }
+
+@media (max-width:600px){
+  .hero-arabic{ font-size:40px; }
+  .arabic-box{ font-size:22px; padding:16px 18px; }
+  .fasl-title-ar{ font-size:17px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">Fiqih Ibadah &middot; Mazhab Syafi&rsquo;i</div>
+    <div class="hero-arabic">كِتَابُ الطَّهَارَةِ</div>
+    <div class="hero-title">Kitab Thaharah — Bersuci</div>
+    <div class="hero-sub">Teks Arab lengkap, terjemahan, dan penjelasan rinci untuk pembelajaran fiqih ibadah tingkat dasar–menengah: jenis air, wudhu, mandi wajib, tayamum, najis, dan hukum darah wanita.</div>
+  </div>
+</header>
+
+<nav class="toc-wrap">
+  <div class="toc-bar">
+    <button onclick="document.getElementById('tocPanel').classList.toggle('open')">☰ Daftar Isi</button>
+    <span class="toc-label">15 Fasal &middot; Kitab Thaharah</span>
+  </div>
+  <div id="tocPanel">
+    <a href="#f1">1. Macam &amp; Pembagian Air</a>
+    <a href="#f2">2. Kulit Bangkai &amp; Penyamakan</a>
+    <a href="#f3">3. Bejana Emas &amp; Perak</a>
+    <a href="#f4">4. Bersiwak</a>
+    <a href="#f5">5. Fardhu &amp; Sunnah Wudhu</a>
+    <a href="#f6">6. Istinja&rsquo; &amp; Adab Buang Hajat</a>
+    <a href="#f7">7. Sebab-Sebab Batalnya Wudhu</a>
+    <a href="#f8">8. Sebab Wajib Mandi</a>
+    <a href="#f9">9. Fardhu &amp; Sunnah Mandi</a>
+    <a href="#f10">10. Mandi-Mandi Sunnah</a>
+    <a href="#f11">11. Mengusap Khuf (Sepatu)</a>
+    <a href="#f12">12. Tayamum</a>
+    <a href="#f13">13. Najis &amp; Cara Menyucikan</a>
+    <a href="#f14">14. Darah Haid, Nifas &amp; Istihadhah</a>
+    <a href="#f15">15. Larangan bagi Junub &amp; Berhadats</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================= FASAL 1 ================= -->
+<section class="fasl" id="f1">
+  <div class="fasl-head">
+    <div class="fasl-num">1</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Macam-Macam Air dan Pembagiannya</div>
+      <div class="fasl-title-ar">فَصْلٌ: أَنْوَاعُ الْمِيَاهِ وَأَقْسَامُهَا</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      فَصْلٌ: [أَنْوَاعُ الْمِيَاهِ وَأَقْسَامُهَا]<br>
+      اَلْمِيَاهُ الَّتِي يَجُوزُ بِهَا التَّطْهِيرُ سَبْعُ مِيَاهٍ:<br>
+      ١ـ مَاءُ السَّمَاءِ. و٢ـ مَاءُ الْبَحْرِ. و٣ـ مَاءُ النَّهَرِ.<br>
+      و٤ـ مَاءُ الْبِئْرِ. و٥ـ مَاءُ الْعَيْنِ. و٦ـ مَاءُ الثَّلْجِ. و٧ـ مَاءُ الْبَرَدِ.<br><br>
+      ثُمَّ الْمِيَاهُ عَلَى أَرْبَعَةِ أَقْسَامٍ:<br>
+      ١ـ طَاهِرٌ مُطَهِّرٌ غَيْرُ مَكْرُوهٍ<span class="fn">(١)</span>؛ وَهُوَ الْمَاءُ الْمُطْلَقُ.<br>
+      و٢ـ طَاهِرٌ مُطَهِّرٌ مَكْرُوهٌ؛ وَهُوَ الْمَاءُ الْمُشَمَّسُ<span class="fn">(٢)</span>.<br>
+      و٣ـ طَاهِرٌ غَيْرُ مُطَهِّرٍ؛ وَهُوَ: ١ـ الْمَاءُ الْمُسْتَعْمَلُ<span class="fn">(١)</span>.<br>
+      و٢ـ الْمُتَغَيِّرُ بِمَا خَالَطَهُ مِنَ الطَّاهِرَاتِ.<br>
+      و٤ـ مَاءٌ نَجِسٌ وَهُوَ: الَّذِي حَلَّتْ فِيهِ نَجَاسَةٌ، وَهُوَ دُونَ الْقُلَّتَيْنِ أَوْ كَانَ قُلَّتَيْنِ فَتَغَيَّرَ<span class="fn">(٢)</span>.<br>
+      وَ(الْقُلَّتَانِ): خَمْسُ مِئَةِ رِطْلٍ بِبَغْدَادِيٍّ تَقْرِيباً فِي الْأَصَحِّ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      <b>Fasal: Macam-macam Air dan Pembagiannya</b><br><br>
+      Air yang boleh digunakan untuk bersuci ada tujuh macam: (1) air hujan, (2) air laut, (3) air sungai, (4) air sumur, (5) air mata air, (6) air salju, dan (7) air embun beku (es).<br><br>
+      Kemudian air terbagi menjadi empat bagian:<br>
+      1. <b>Suci dan mensucikan, tidak makruh</b> — yaitu air mutlak (air murni tanpa campuran apapun).<br>
+      2. <b>Suci dan mensucikan, tetapi makruh</b> dipakai — yaitu air musyammas (air yang dipanaskan oleh sinar matahari dalam wadah logam selain emas dan perak).<br>
+      3. <b>Suci tetapi tidak mensucikan</b> — yaitu: (a) air musta'mal (air bekas dipakai bersuci), dan (b) air yang berubah sifatnya karena bercampur benda suci lain (misalnya sabun, teh, kunyit).<br>
+      4. <b>Air najis</b> — yaitu air yang kemasukan najis, apabila kurang dari dua qullah, atau meski mencapai dua qullah tetapi berubah warna, rasa, atau baunya.<br><br>
+      Dan (dua qullah) kurang lebih setara 500 rithl Baghdad menurut pendapat yang paling shahih.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Mengapa pembagian air ini penting?</h4>
+      <p>Ini adalah pembahasan pembuka fiqih thaharah karena hampir semua ibadah (wudhu, mandi wajib, menghilangkan najis) mensyaratkan penggunaan air yang memenuhi kriteria tertentu. Santri/murid perlu hafal dan paham empat kategori ini sebelum masuk ke bab wudhu.</p>
+
+      <h4>Tujuh sumber air mutlak</h4>
+      <p>Ketujuh air ini disebut sebagai <i>air mutlak</i> (air murni) karena berasal langsung dari siklus alami air (turun dari langit atau memancar dari bumi) tanpa campuran zat lain yang mengubah namanya. Air PAM/ledeng, air isi ulang, dan air sumber lain di zaman sekarang termasuk dalam kategori "air mutlak" ini selama tidak tercampur zat lain yang mengubah sifatnya.</p>
+
+      <h4>Tabel empat kategori air</h4>
+      <table>
+        <tr><th>No</th><th>Kategori</th><th>Contoh</th><th>Boleh dipakai bersuci?</th></tr>
+        <tr><td>1</td><td>Suci &amp; mensucikan (tidak makruh)</td><td>Air mutlak biasa</td><td>Ya, dianjurkan</td></tr>
+        <tr><td>2</td><td>Suci &amp; mensucikan (makruh)</td><td>Air musyammas (dijemur dalam wadah logam panas)</td><td>Ya, tapi makruh dipakai di badan (bukan mencuci benda)</td></tr>
+        <tr><td>3</td><td>Suci, tidak mensucikan</td><td>Air musta'mal; air teh/kopi/sabun</td><td>Tidak sah untuk bersuci, tapi tetap suci untuk diminum dll.</td></tr>
+        <tr><td>4</td><td>Najis</td><td>Air &lt; 2 qullah kemasukan najis; atau air &ge; 2 qullah yang berubah</td><td>Tidak boleh dipakai sama sekali</td></tr>
+      </table>
+
+      <h4>Apa itu air musta'mal?</h4>
+      <p>Air musta'mal adalah air sisa yang sudah menetes dari anggota wudhu/mandi ketika digunakan untuk menunaikan fardhu thaharah. Air ini tetap suci (boleh diminum, mencuci pakaian yang tidak untuk ibadah, dll.) tetapi tidak sah lagi dipakai untuk berwudhu atau mandi wajib berikutnya, karena sudah "terpakai" untuk mengangkat hadas.</p>
+
+      <h4>Konsep dua qullah (al-qullatain)</h4>
+      <p>Dua qullah adalah ukuran/batas volume air yang membedakan cara air tersebut menjadi najis:</p>
+      <ul>
+        <li><b>Air kurang dari dua qullah</b> — begitu kemasukan najis (walau tidak berubah rasa/warna/bau), air langsung dihukumi najis.</li>
+        <li><b>Air mencapai/lebih dari dua qullah</b> — air baru dihukumi najis <i>jika</i> salah satu sifatnya (warna, rasa, atau bau) berubah akibat najis tersebut.</li>
+      </ul>
+      <p>Ukuran dua qullah menurut pendapat yang paling shahih (al-ashah) dalam mazhab Syafi'i adalah kurang lebih 500 rithl Baghdad, yang oleh ulama kontemporer umumnya dikonversi setara dengan &plusmn; 216 liter air (setara kubus berukuran kira-kira 1,25 x 1,25 x 1,25 hasta). Dalam praktik pengajaran modern, ukuran ini biasa disetarakan dengan bak air berkapasitas sekitar 200 liter ke atas.</p>
+
+      <div class="note">
+        <b>Catatan pengajaran:</b> Konsep qullatain ini sangat relevan untuk menjelaskan kepada murid mengapa air kolam/bak mandi besar yang kejatuhan sedikit kotoran (tanpa berubah warna/bau/rasa) tetap dihukumi suci, sedangkan segelas air yang kejatuhan setetes najis langsung menjadi najis.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 2 ================= -->
+<section class="fasl" id="f2">
+  <div class="fasl-head">
+    <div class="fasl-num">2</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Kulit Bangkai dan Penyamakan</div>
+      <div class="fasl-title-ar">فَصْلٌ: الْأَعْيَانُ الْمُتَنَجِّسَةُ وَمَا يَطْهُرُ مِنْهَا</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَجُلُودُ الْمَيْتَةِ تَطْهُرُ بِالدِّبَاغِ، إِلَّا جِلْدَ الْكَلْبِ وَالْخِنْزِيرِ وَمَا تَوَلَّدَ مِنْهُمَا أَوْ مِنْ أَحَدِهِمَا. وَعَظْمُ الْمَيْتَةِ وَشَعَرُهَا نَجِسٌ إِلَّا الآدَمِيَّ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Kulit bangkai (hewan yang mati tanpa disembelih secara syar'i) menjadi suci dengan cara disamak, kecuali kulit anjing, babi, serta hewan yang lahir dari keduanya atau dari salah satunya. Tulang bangkai dan rambutnya (bulunya) tetap najis, kecuali tulang dan rambut manusia (yang dihukumi suci).
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Apa itu "bangkai" (maytah) dalam fiqih?</h4>
+      <p>Bangkai adalah hewan darat berdarah yang mati bukan karena disembelih secara syar'i (misalnya mati sendiri, tercekik, atau disembelih tanpa memenuhi syarat). Bangkai termasuk najis, dan seluruh bagian tubuhnya (daging, kulit, dsb.) ikut najis — kecuali ada dalil khusus yang mengeluarkannya dari hukum ini, seperti kulit yang disamak.</p>
+
+      <h4>Konsep "dibaghah" (penyamakan kulit)</h4>
+      <p>Dibaghah (تدبيغ) adalah proses mengolah kulit mentah dengan bahan penyamak (dahulu memakai zat seperti kulit kayu qaradh yang mengandung tanin, sekarang bisa memakai bahan kimia penyamak modern) sehingga kulit menjadi awet, tidak busuk, dan hilang bau amis serta cairan/lendirnya. Dalam mazhab Syafi'i, penyamakan ini secara syar'i berfungsi menyucikan kulit bangkai — layaknya proses "istihalah" (perubahan total zat) yang mengubah status najis suatu benda.</p>
+
+      <h4>Mengapa kulit anjing &amp; babi dikecualikan?</h4>
+      <p>Anjing dan babi termasuk <i>najis mughallazhah</i> (najis berat) dalam mazhab Syafi'i — bukan sekadar bangkainya yang najis, tetapi seluruh tubuhnya (termasuk saat hidup) dihukumi najis. Karena itu, proses penyamakan yang biasanya efektif menyucikan kulit bangkai hewan lain, tidak berlaku untuk kulit anjing dan babi.</p>
+
+      <h4>Tulang dan rambut bangkai</h4>
+      <p>Berbeda dengan kulit, tulang dan bulu/rambut bangkai <b>tidak</b> bisa disucikan dengan penyamakan — statusnya tetap najis selamanya, kecuali jika berasal dari manusia. Tulang dan rambut manusia dihukumi suci sebagai bentuk penghormatan syariat terhadap kemuliaan manusia, sekalipun manusia tersebut sudah wafat.</p>
+
+      <div class="note">
+        <b>Contoh penerapan:</b> Kulit sapi/kambing yang mati sendiri (bukan disembelih) bisa dijadikan bahan kerajinan (misalnya rebana atau tas) yang suci, asalkan telah melalui proses penyamakan yang sempurna. Namun tulang dari bangkai yang sama tetap tidak boleh disentuh dalam keadaan basah tanpa dicuci, karena masih najis.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 3 ================= -->
+<section class="fasl" id="f3">
+  <div class="fasl-head">
+    <div class="fasl-num">3</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Larangan Memakai Bejana Emas &amp; Perak</div>
+      <div class="fasl-title-ar">فَصْلٌ: مَا يَحْرُمُ اسْتِعْمَالُهُ مِنَ الْأَوَانِي وَمَا يَجُوزُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَلَا يَجُوزُ اسْتِعْمَالُ أَوَانِي الذَّهَبِ وَالْفِضَّةِ، وَيَجُوزُ اسْتِعْمَالُ غَيْرِهِمَا مِنَ الْأَوَانِي.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Tidak boleh menggunakan bejana (wadah) yang terbuat dari emas dan perak, dan boleh menggunakan bejana selain keduanya.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Hukum menggunakan bejana emas &amp; perak</h4>
+      <p>Menggunakan bejana emas dan perak untuk makan, minum, atau bersuci hukumnya <b>haram</b> bagi laki-laki maupun perempuan. Larangan ini berlaku untuk penggunaan langsung (misalnya makan/minum dari piring emas), bukan sekadar memiliki atau menyimpannya sebagai perhiasan/aset.</p>
+
+      <h4>Alasan larangan (hikmah)</h4>
+      <ul>
+        <li>Emas dan perak adalah barang berharga yang jika dijadikan bejana sehari-hari akan menimbulkan sifat sombong dan berlebih-lebihan (israf/mubazir).</li>
+        <li>Terdapat unsur menyakiti perasaan orang fakir karena kesenjangan yang mencolok.</li>
+        <li>Riwayat hadits secara khusus melarang perbuatan ini bagi umat Islam.</li>
+      </ul>
+
+      <h4>Bejana lain — boleh digunakan</h4>
+      <p>Selain emas dan perak, semua jenis bejana (dari kaca, keramik, plastik, kayu, besi, tembaga, aluminium, dan logam campuran/berlapis lainnya) boleh digunakan tanpa batasan, selama bendanya sendiri suci.</p>
+
+      <div class="note">
+        <b>Catatan pengajaran:</b> Perlu dibedakan antara "memiliki" emas/perak (misalnya sebagai investasi atau perhiasan wanita) yang hukumnya boleh, dengan "menggunakan"-nya sebagai wadah makan-minum atau alat bersuci yang hukumnya haram. Sebagian ulama memberi rincian tambahan terkait hiasan sedikit dari perak pada bejana (misalnya bibir gelas berlapis perak tipis), namun kaidah pokoknya tetap seperti di atas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 4 ================= -->
+<section class="fasl" id="f4">
+  <div class="fasl-head">
+    <div class="fasl-num">4</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Bersiwak</div>
+      <div class="fasl-title-ar">فَصْلٌ: اسْتِعْمَالُ آلَةِ السِّوَاكِ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَالسِّوَاكُ مُسْتَحَبٌّ فِي كُلِّ حَالٍ، إِلَّا بَعْدَ الزَّوَالِ لِلصَّائِمِ، وَهُوَ فِي ثَلَاثَةِ مَوَاضِعَ أَشَدُّ اسْتِحْبَاباً:<br>
+      ١ـ عِنْدَ تَغَيُّرِ الْفَمِ مِنْ أَزْمٍ<span class="fn">(١)</span> وَغَيْرِهِ<span class="fn">(٢)</span>. و٢ـ عِنْدَ الْقِيَامِ مِنَ النَّوْمِ. و٣ـ عِنْدَ الْقِيَامِ إِلَى الصَّلَاةِ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Bersiwak disunnahkan dalam setiap keadaan, kecuali setelah tergelincir matahari (masuk waktu Zhuhur) bagi orang yang sedang berpuasa. Bersiwak lebih dianjurkan lagi pada tiga keadaan: (1) ketika mulut berbau tidak sedap akibat lama tidak makan atau sebab lain, (2) ketika bangun dari tidur, dan (3) ketika hendak melaksanakan shalat.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Definisi siwak</h4>
+      <p>Siwak adalah kayu/ranting (umumnya dari pohon arok) yang digunakan untuk membersihkan gigi dan mulut, atau bisa juga menggunakan sikat gigi modern sebagai penggantinya dalam praktik kontemporer, karena substansi sunnahnya adalah membersihkan mulut, bukan semata bendanya.</p>
+
+      <h4>Hukum dasar: sunnah dalam segala keadaan</h4>
+      <p>Bersiwak dianjurkan (sunnah) kapan saja, kecuali satu pengecualian: bagi orang yang sedang berpuasa, bersiwak setelah tergelincirnya matahari (masuk waktu Zhuhur hingga Maghrib) hukumnya makruh — bukan haram — karena dikhawatirkan menghilangkan bau mulut orang yang berpuasa (khuluf), yang justru di sisi Allah lebih harum daripada minyak kesturi.</p>
+
+      <h4>Tiga waktu yang paling dianjurkan</h4>
+      <ol>
+        <li><b>Saat mulut berbau/berubah</b> — baik karena lama tidak makan (diam lama, "azm") atau sebab lain seperti makan bawang, merokok, atau bau tidak sedap lainnya.</li>
+        <li><b>Saat bangun tidur</b> — karena mulut cenderung berbau kurang segar setelah tidur.</li>
+        <li><b>Saat hendak shalat</b> — agar seseorang menghadap Allah dalam keadaan bersih dan segar.</li>
+      </ol>
+
+      <div class="note">
+        <b>Catatan pengajaran:</b> Ajarkan kepada murid bahwa bersiwak termasuk sunnah yang mudah diamalkan sehari-hari dan memiliki manfaat kesehatan gigi &amp; mulut yang juga diakui secara medis modern — sehingga selaras antara syariat dan kesehatan.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 5 ================= -->
+<section class="fasl" id="f5">
+  <div class="fasl-head">
+    <div class="fasl-num">5</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Fardhu dan Sunnah Wudhu</div>
+      <div class="fasl-title-ar">فَصْلٌ: فُرُوضُ الْوُضُوءِ وَسُنَنُهُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَفُرُوضُ الْوُضُوءِ سِتَّةُ أَشْيَاءَ:<br>
+      ١ـ النِّيَّةُ عِنْدَ غَسْلِ الْوَجْهِ. و٢ـ غَسْلُ الْوَجْهِ. و٣ـ غَسْلُ الْيَدَيْنِ إِلَى الْمِرْفَقَيْنِ.<br>
+      و٤ـ مَسْحُ بَعْضِ الرَّأْسِ. و٥ـ غَسْلُ الرِّجْلَيْنِ إِلَى الْكَعْبَيْنِ. و٦ـ التَّرْتِيبُ عَلَى مَا ذَكَرْنَاهُ.<br><br>
+      وَسُنَنُهُ عَشَرَةُ أَشْيَاءَ:<br>
+      ١ـ التَّسْمِيَةُ. و٢ـ غَسْلُ الْكَفَّيْنِ قَبْلَ إِدْخَالِهِمَا الْإِنَاءَ. و٣ـ الْمَضْمَضَةُ وَالِاسْتِنْشَاقُ.<br>
+      و٤ـ مَسْحُ جَمِيعِ الرَّأْسِ. و٥ـ مَسْحُ الْأُذُنَيْنِ ظَاهِرِهِمَا وَبَاطِنِهِمَا بِمَاءٍ جَدِيدٍ.<br>
+      و٦ـ تَخْلِيلُ اللِّحْيَةِ الْكَثَّةِ. و٧ـ تَخْلِيلُ أَصَابِعِ الْيَدَيْنِ وَالرِّجْلَيْنِ.<br>
+      و٨ـ تَقْدِيمُ الْيُمْنَى عَلَى الْيُسْرَى. و٩ـ الطَّهَارَةُ ثَلَاثاً ثَلَاثاً. و١٠ـ الْمُوَالَاةُ<span class="fn">(١)</span>.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      <b>Fardhu (rukun) wudhu ada enam:</b><br>
+      1. Niat, dilakukan bersamaan dengan membasuh wajah.<br>
+      2. Membasuh wajah.<br>
+      3. Membasuh kedua tangan sampai siku.<br>
+      4. Mengusap sebagian kepala.<br>
+      5. Membasuh kedua kaki sampai mata kaki.<br>
+      6. Tertib (berurutan) sesuai urutan yang disebutkan.<br><br>
+      <b>Sunnah-sunnah wudhu ada sepuluh:</b><br>
+      1. Membaca basmalah. 2. Membasuh kedua telapak tangan sebelum memasukkannya ke dalam wadah air. 3. Berkumur dan menghirup air ke hidung (istinsyaq). 4. Mengusap seluruh bagian kepala (bukan sebagian saja). 5. Mengusap kedua telinga bagian luar dan dalam dengan air yang baru. 6. Menyela-nyela jenggot yang lebat. 7. Menyela-nyela jari tangan dan kaki. 8. Mendahulukan anggota kanan sebelum kiri. 9. Membasuh tiga kali-tiga kali. 10. Muwalah (berkesinambungan, tidak menunda antar-basuhan).
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Perbedaan fardhu dan sunnah wudhu</h4>
+      <p><b>Fardhu (rukun)</b> adalah bagian wajib yang jika ditinggalkan maka wudhu batal/tidak sah. <b>Sunnah</b> adalah amalan tambahan yang menyempurnakan pahala wudhu, namun jika ditinggalkan wudhu tetap sah.</p>
+
+      <h4>Rincian enam fardhu wudhu</h4>
+      <table>
+        <tr><th>No</th><th>Fardhu</th><th>Keterangan Praktis</th></tr>
+        <tr><td>1</td><td>Niat</td><td>Diucapkan dalam hati bersamaan awal membasuh wajah, misalnya niat "menghilangkan hadas kecil" atau "agar diperbolehkan shalat".</td></tr>
+        <tr><td>2</td><td>Membasuh wajah</td><td>Batasnya: dari tempat tumbuh rambut kepala (dahi) hingga dagu, dan dari telinga kanan ke telinga kiri.</td></tr>
+        <tr><td>3</td><td>Membasuh tangan</td><td>Dari ujung jari hingga melewati siku (siku ikut dibasuh).</td></tr>
+        <tr><td>4</td><td>Mengusap kepala</td><td>Cukup sebagian kecil rambut/kulit kepala yang diusap air.</td></tr>
+        <tr><td>5</td><td>Membasuh kaki</td><td>Dari ujung jari kaki hingga melewati mata kaki (mata kaki ikut dibasuh).</td></tr>
+        <tr><td>6</td><td>Tertib</td><td>Dilakukan berurutan sesuai urutan di atas — tidak boleh dibalik-balik.</td></tr>
+      </table>
+
+      <h4>Sepuluh sunnah wudhu &mdash; penjelasan singkat</h4>
+      <ul>
+        <li><b>Basmalah:</b> membaca "Bismillah" di awal wudhu.</li>
+        <li><b>Membasuh telapak tangan:</b> sebelum mencelupkan tangan ke bejana, guna memastikan kebersihan tangan.</li>
+        <li><b>Madhmadhah &amp; istinsyaq:</b> berkumur dan menghirup air ke hidung lalu mengeluarkannya (istintsar).</li>
+        <li><b>Mengusap seluruh kepala:</b> menyempurnakan yang fardhu (hanya sebagian).</li>
+        <li><b>Mengusap kedua telinga:</b> dengan air baru (bukan sisa air usapan kepala).</li>
+        <li><b>Menyela jenggot tebal:</b> agar air merata ke pangkal rambut jenggot yang lebat.</li>
+        <li><b>Menyela jari tangan &amp; kaki:</b> memastikan air masuk ke sela-sela jari.</li>
+        <li><b>Mendahulukan kanan:</b> membasuh tangan/kaki kanan sebelum kiri.</li>
+        <li><b>Tiga kali basuhan:</b> mengulang setiap basuhan hingga tiga kali.</li>
+        <li><b>Muwalah:</b> tidak memberi jeda lama antar-basuhan, sehingga anggota yang sudah dibasuh belum sampai kering ketika anggota berikutnya dibasuh.</li>
+      </ul>
+
+      <div class="note">
+        <b>Tips mengajar:</b> Gunakan gerakan praktik langsung (demonstrasi wudhu) sambil menyebutkan satu per satu fardhu dan sunnah agar murid mudah menghafal urutan dan membedakan mana yang wajib dan mana yang sunnah.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 6 ================= -->
+<section class="fasl" id="f6">
+  <div class="fasl-head">
+    <div class="fasl-num">6</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Istinja&rsquo; dan Adab Buang Hajat</div>
+      <div class="fasl-title-ar">فَصْلٌ: الِاسْتِنْجَاءُ وَآدَابُ قَضَاءِ الْحَاجَةِ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَالِاسْتِنْجَاءُ وَاجِبٌ مِنَ الْبَوْلِ وَالْغَائِطِ، وَالْأَفْضَلُ أَنْ يَسْتَنْجِيَ بِالْأَحْجَارِ ثُمَّ يُتْبِعَهَا بِالْمَاءِ. وَيَجُوزُ أَنْ يَقْتَصِرَ عَلَى الْمَاءِ أَوْ عَلَى ثَلَاثَةِ أَحْجَارٍ يُنَقِّي بِهِنَّ الْمَحَلَّ، فَإِنْ أَرَادَ الِاقْتِصَارَ عَلَى أَحَدِهِمَا.. فَالْمَاءُ أَفْضَلُ.<br><br>
+      وَيَجْتَنِبُ اسْتِقْبَالَ الْقِبْلَةِ وَاسْتِدْبَارَهَا فِي الصَّحْرَاءِ. وَيَجْتَنِبُ الْبَوْلَ وَالْغَائِطَ فِي الْمَاءِ الرَّاكِدِ، وَتَحْتَ الشَّجَرَةِ الْمُثْمِرَةِ، وَفِي الطَّرِيقِ، وَالظِّلِّ، وَالثُّقْبِ. وَلَا يَتَكَلَّمُ عَلَى الْبَوْلِ وَالْغَائِطِ. وَلَا يَسْتَقْبِلُ الشَّمْسَ وَلَا الْقَمَرَ، وَلَا يَسْتَدْبِرُهُمَا.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Istinja' (bersuci setelah buang air) hukumnya wajib dari air kencing dan buang air besar. Yang paling utama adalah beristinja' dengan batu terlebih dahulu lalu diikuti dengan air. Boleh juga cukup dengan air saja, atau cukup dengan tiga batu yang membersihkan tempat keluarnya najis. Jika ingin cukup dengan salah satunya saja, maka air lebih utama.<br><br>
+      Hendaknya menghindari menghadap atau membelakangi kiblat ketika buang hajat di tempat terbuka (padang pasir/lapangan). Juga menghindari buang air kecil/besar di air yang tergenang, di bawah pohon yang berbuah, di jalan, di tempat berteduh, dan di lubang. Tidak berbicara saat buang air kecil/besar. Tidak menghadap atau membelakangi matahari dan bulan.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Pengertian istinja'</h4>
+      <p>Istinja' adalah membersihkan/menyucikan tempat keluarnya kotoran (qubul dan dubur) setelah buang air kecil atau besar, agar bekas najis tidak tersisa.</p>
+
+      <h4>Tiga cara istinja' yang sah</h4>
+      <ol>
+        <li><b>Batu lalu air (paling utama):</b> menggunakan benda kesat/kasar (seperti batu, tisu) terlebih dahulu untuk mengurangi kotoran, lalu disempurnakan dengan air.</li>
+        <li><b>Air saja:</b> sah dan bersih sempurna, karena air membersihkan zat dan bekasnya sekaligus.</li>
+        <li><b>Tiga batu/benda kesat saja:</b> sah dengan syarat benda tersebut dapat membersihkan tempat najis secara efektif (tidak menyebarkan kotoran, dan kotoran tidak sampai kering/menyebar terlalu jauh dari tempat asal).</li>
+      </ol>
+      <p>Jika harus memilih salah satu, air lebih utama karena membersihkan secara tuntas hingga hilang zat, warna, dan baunya.</p>
+
+      <h4>Adab-adab buang hajat</h4>
+      <ul>
+        <li><b>Tidak menghadap/membelakangi kiblat</b> di tempat terbuka, sebagai bentuk pengagungan terhadap arah kiblat. (Di dalam bangunan tertutup/WC dengan dinding, sebagian ulama memberi keringanan.)</li>
+        <li><b>Menjauhi tempat-tempat yang dimuliakan atau digunakan orang banyak:</b> air tergenang (karena mengotori sumber air bersama), bawah pohon berbuah (tempat orang lewat/berteduh dan memetik buah), jalan umum, tempat berteduh, dan lubang (dikhawatirkan ada hewan di dalamnya).</li>
+        <li><b>Tidak berbicara</b> ketika sedang buang hajat, kecuali ada keperluan mendesak.</li>
+        <li><b>Tidak menghadap/membelakangi matahari dan bulan</b> sebagai bentuk adab, menurut sebagian ulama karena keduanya termasuk tanda kebesaran Allah.</li>
+      </ul>
+
+      <div class="note">
+        <b>Relevansi masa kini:</b> Materi arah kiblat kini lebih mudah diajarkan karena kebanyakan kamar mandi modern sudah tertutup/berdinding, namun adab menjaga kebersihan tempat umum, sumber air, dan menjauhi area publik tetap sangat relevan untuk pendidikan karakter santri.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 7 ================= -->
+<section class="fasl" id="f7">
+  <div class="fasl-head">
+    <div class="fasl-num">7</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Sebab-Sebab Batalnya Wudhu</div>
+      <div class="fasl-title-ar">فَصْلٌ: أَسْبَابُ الْحَدَثِ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَالَّذِي يَنْقُضُ الْوُضُوءَ سِتَّةُ أَشْيَاءَ:<br>
+      ١ـ مَا خَرَجَ مِنَ السَّبِيلَيْنِ. و٢ـ النَّوْمُ عَلَى غَيْرِ هَيْئَةِ الْمُتَمَكِّنِ<span class="fn">(٢)</span>.<br>
+      و٣ـ زَوَالُ الْعَقْلِ بِسُكْرٍ أَوْ مَرَضٍ<span class="fn">(٣)</span>. و٤ـ لَمْسُ الرَّجُلِ الْمَرْأَةَ الْأَجْنَبِيَّةَ مِنْ غَيْرِ حَائِلٍ.<br>
+      و٥ـ مَسُّ فَرْجِ الْآدَمِيِّ بِبَاطِنِ الْكَفِّ. و٦ـ مَسُّ حَلْقَةِ دُبُرِهِ، عَلَى الْجَدِيدِ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Hal-hal yang membatalkan wudhu ada enam:<br>
+      1. Sesuatu yang keluar dari dua jalan (qubul dan dubur).<br>
+      2. Tidur dalam posisi yang tidak menetapkan pantat di tempat duduk (tidak tamakkun).<br>
+      3. Hilangnya akal sebab mabuk atau sakit (pingsan, gila).<br>
+      4. Bersentuhan kulit antara laki-laki dan perempuan yang bukan mahram tanpa penghalang.<br>
+      5. Menyentuh kemaluan manusia dengan telapak tangan bagian dalam.<br>
+      6. Menyentuh lingkar dubur, menurut pendapat baru (qaul jadid) Imam Syafi'i.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Rincian enam pembatal wudhu</h4>
+      <table>
+        <tr><th>No</th><th>Pembatal</th><th>Penjelasan</th></tr>
+        <tr><td>1</td><td>Keluarnya sesuatu dari qubul/dubur</td><td>Kencing, buang air besar, kentut, madzi, dsb. (kecuali mani, yang mewajibkan mandi, bukan sekadar wudhu).</td></tr>
+        <tr><td>2</td><td>Tidur tidak dalam posisi tamakkun</td><td>Tidur berbaring, miring, atau tidur duduk namun pantatnya tidak menempel rapat ke alas duduk (berisiko keluar angin/hadas tanpa disadari).</td></tr>
+        <tr><td>3</td><td>Hilang akal</td><td>Pingsan, gila, mabuk, atau ayan (epilepsi) &mdash; karena hilangnya kesadaran berisiko keluarnya hadas tanpa disadari.</td></tr>
+        <tr><td>4</td><td>Bersentuhan kulit lawan jenis bukan mahram</td><td>Tanpa penghalang (kain dsb.), antara laki-laki dan perempuan dewasa yang bukan mahram dan bukan pasangan suami-istri.</td></tr>
+        <tr><td>5</td><td>Menyentuh kemaluan sendiri/orang lain</td><td>Dengan telapak tangan bagian dalam (bukan punggung tangan).</td></tr>
+        <tr><td>6</td><td>Menyentuh lubang dubur</td><td>Berdasarkan qaul jadid (pendapat baru) Imam Syafi'i.</td></tr>
+      </table>
+
+      <h4>Mengapa disebut "tamakkun" pada tidur?</h4>
+      <p>Tamakkun artinya posisi duduk yang mantap dengan pantat menempel rapat ke alas duduk sehingga secara logika tidak mungkin ada angin/hadas yang keluar tanpa terasa. Jika seseorang tidur dalam posisi ini, wudhunya tidak batal. Namun jika tidur berbaring, miring, atau bersandar sehingga pantat tidak menempel sempurna, wudhunya batal karena berpotensi keluar hadas tanpa disadari.</p>
+
+      <h4>Catatan tentang persentuhan kulit (poin 4)</h4>
+      <p>Ini adalah salah satu masalah khilafiyah (perbedaan pendapat) yang cukup terkenal antar mazhab. Mazhab Syafi'i berpendapat bahwa bersentuhan kulit antara laki-laki dan perempuan dewasa yang bukan mahram membatalkan wudhu, meskipun tanpa syahwat, berdasarkan pemahaman terhadap ayat "أو لامستم النساء". Mazhab lain (seperti Hanafi) memiliki pandangan berbeda.</p>
+
+      <div class="note">
+        <b>Tips mengajar:</b> Jelaskan konteks masing-masing sebab dengan contoh nyata sehari-hari agar murid mudah mengenali situasi mana yang membatalkan wudhu mereka, misalnya saat tidur di kelas, bersalaman dengan bukan mahram, atau tertidur di kendaraan.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 8 ================= -->
+<section class="fasl" id="f8">
+  <div class="fasl-head">
+    <div class="fasl-num">8</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Sebab-Sebab yang Mewajibkan Mandi</div>
+      <div class="fasl-title-ar">فَصْلٌ: مُوجِبُ الْغُسْلِ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَالَّذِي يُوجِبُ الْغُسْلَ سِتَّةُ أَشْيَاءَ:<br>
+      ١ـ الْتِقَاءُ الْخِتَانَيْنِ<span class="fn">(١)</span>. و٢ـ إِنْزَالُ الْمَنِيِّ. و٣ـ الْمَوْتُ<span class="fn">(٢)</span>.<br><br>
+      وَثَلَاثَةٌ تَخْتَصُّ بِهَا النِّسَاءُ وَهِيَ:<br>
+      ١ـ الْحَيْضُ. و٢ـ النِّفَاسُ. و٣ـ الْوِلَادَةُ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Hal-hal yang mewajibkan mandi ada enam:<br>
+      1. Bertemunya dua alat kelamin (bersetubuh), meski tidak keluar mani.<br>
+      2. Keluarnya air mani.<br>
+      3. Kematian (jenazah muslim wajib dimandikan oleh yang masih hidup).<br><br>
+      Dan tiga hal khusus bagi perempuan:<br>
+      1. Haid. 2. Nifas. 3. Melahirkan (meski tanpa keluar darah/kering).
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Enam sebab wajib mandi</h4>
+      <ol>
+        <li><b>Iltiqa' al-khitanain</b> (bertemunya dua alat kelamin) &mdash; yaitu hubungan suami-istri (jima'), yang mewajibkan mandi bagi kedua belah pihak walaupun tidak sampai keluar mani.</li>
+        <li><b>Keluar mani</b> &mdash; baik dalam keadaan terjaga maupun saat tidur (mimpi basah/ihtilam), baik disengaja maupun tidak.</li>
+        <li><b>Kematian</b> &mdash; jenazah muslim wajib dimandikan oleh orang yang masih hidup (kifayah), kecuali jenazah syahid di medan perang yang tidak dimandikan.</li>
+      </ol>
+      <p>Tiga sebab khusus perempuan:</p>
+      <ol start="4">
+        <li><b>Haid</b> &mdash; wajib mandi setelah darah haid berhenti.</li>
+        <li><b>Nifas</b> &mdash; wajib mandi setelah darah nifas (pasca melahirkan) berhenti.</li>
+        <li><b>Melahirkan (wiladah)</b> &mdash; tetap wajib mandi meski persalinan berlangsung tanpa keluar darah sama sekali (misalnya melahirkan "kering").</li>
+      </ol>
+
+      <h4>Kaitan dengan bab thaharah selanjutnya</h4>
+      <p>Enam sebab ini disebut sebagai <i>hadas besar</i>, yang berbeda dengan hadas kecil (pembatal wudhu pada fasal sebelumnya). Untuk mengangkat hadas besar, seseorang wajib mandi (ghusl), bukan cukup dengan berwudhu.</p>
+
+      <div class="note">
+        <b>Catatan pengajaran:</b> Tekankan kepada murid bahwa hadas besar menghalangi seseorang dari shalat, thawaf, menyentuh mushaf, dan (khusus bagi yang haid/nifas) juga menghalangi puasa dan hubungan suami-istri, sampai mandi wajib dilakukan.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 9 ================= -->
+<section class="fasl" id="f9">
+  <div class="fasl-head">
+    <div class="fasl-num">9</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Fardhu dan Sunnah Mandi</div>
+      <div class="fasl-title-ar">فَصْلٌ: فُرُوضُ الْغُسْلِ وَسُنَنُهُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَفَرَائِضُ الْغُسْلِ ثَلَاثَةُ أَشْيَاءَ:<br>
+      ١ـ النِّيَّةُ. و٢ـ إِزَالَةُ النَّجَاسَةِ إِنْ كَانَتْ عَلَى بَدَنِهِ. و٣ـ إِيصَالُ الْمَاءِ إِلَى جَمِيعِ الشَّعَرِ وَالْبَشَرَةِ.<br><br>
+      وَسُنَنُهُ خَمْسَةُ أَشْيَاءَ:<br>
+      ١ـ التَّسْمِيَةُ. و٢ـ الْوُضُوءُ قَبْلَهُ. و٣ـ إِمْرَارُ الْيَدِ عَلَى الْجَسَدِ. و٤ـ الْمُوَالَاةُ. و٥ـ تَقْدِيمُ الْيُمْنَى عَلَى الْيُسْرَى.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      <b>Fardhu (rukun) mandi ada tiga:</b><br>
+      1. Niat. 2. Menghilangkan najis jika ada pada badan. 3. Meratakan air ke seluruh rambut dan kulit tubuh.<br><br>
+      <b>Sunnah-sunnah mandi ada lima:</b><br>
+      1. Membaca basmalah. 2. Berwudhu sebelum mandi. 3. Menggosok badan dengan tangan. 4. Muwalah (berkesinambungan). 5. Mendahulukan anggota kanan sebelum kiri.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Tiga fardhu mandi wajib</h4>
+      <ul>
+        <li><b>Niat</b> &mdash; misalnya niat mengangkat hadas besar, dilakukan bersamaan dengan mengalirkan air pertama kali ke tubuh.</li>
+        <li><b>Menghilangkan najis</b> &mdash; jika ada najis yang menempel di badan, harus dibersihkan terlebih dahulu/bersamaan agar air mandi bisa langsung menyucikan.</li>
+        <li><b>Meratakan air ke seluruh rambut dan kulit</b> &mdash; termasuk kulit di bawah rambut tebal, sela-sela lipatan tubuh, pusar, dan bagian tersembunyi lain yang wajib dijangkau air. Ini poin krusial yang paling sering terlewat, misalnya pada wanita berambut tebal/panjang atau pria berjenggot lebat.</li>
+      </ul>
+
+      <h4>Lima sunnah mandi</h4>
+      <p>Sunnah-sunnah ini melengkapi fardhu di atas dan mengikuti pola serupa dengan sunnah wudhu: dimulai dengan basmalah, didahului wudhu sempurna (yang juga berfungsi sebagai wudhu untuk shalat setelahnya jika hadas besar hilang dan tidak ada hadas kecil baru), digosok agar air merata dan kotoran luruh, dilakukan tanpa jeda (muwalah), serta mendahulukan sisi kanan.</p>
+
+      <div class="note">
+        <b>Catatan penting:</b> Berbeda dengan wudhu yang memiliki urutan wajib (tertib), mandi wajib tidak mensyaratkan tertib &mdash; yang penting seluruh rambut dan kulit tubuh basah merata oleh air, dalam urutan apapun.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 10 ================= -->
+<section class="fasl" id="f10">
+  <div class="fasl-head">
+    <div class="fasl-num">10</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Mandi-Mandi yang Disunnahkan</div>
+      <div class="fasl-title-ar">فَصْلٌ: الِاغْتِسَالَاتُ الْمَسْنُونَةُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَالِاغْتِسَالَاتُ الْمَسْنُونَةُ سَبْعَةَ عَشَرَ غُسْلاً:<br>
+      ١ـ غُسْلُ الْجُمُعَةِ. و٢ـ الْعِيدَيْنِ. و٣ـ الِاسْتِسْقَاءِ. و٤ـ الْخُسُوفِ. و٥ـ الْكُسُوفِ.<br>
+      و٦ـ الْغُسْلُ مِنْ غَسْلِ الْمَيِّتِ. و٧ـ الْكَافِرُ إِذَا أَسْلَمَ. و٨ـ الْمَجْنُونُ، و٩ـ الْمُغْمَى عَلَيْهِ، إِذَا أَفَاقَا.<br>
+      و١٠ـ الْغُسْلُ عِنْدَ الْإِحْرَامِ. و١١ـ لِدُخُولِ مَكَّةَ. و١٢ـ لِلْوُقُوفِ بِعَرَفَةَ. و١٣ـ لِلْمَبِيتِ بِمُزْدَلِفَةَ.<br>
+      و١٤ـ لِرَمْيِ الْجِمَارِ الثَّلَاثِ. و١٥ـ لِلطَّوَافِ. و١٦ـ لِلسَّعْيِ. و١٧ـ لِدُخُولِ مَدِينَةِ رَسُولِ اللهِ ﷺ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Mandi-mandi yang disunnahkan ada tujuh belas: (1) mandi Jumat, (2) dua hari raya (Idul Fitri &amp; Idul Adha), (3) shalat istisqa' (minta hujan), (4) gerhana bulan, (5) gerhana matahari, (6) mandi setelah memandikan jenazah, (7) orang kafir yang baru masuk Islam, (8) orang gila dan (9) orang pingsan setelah siuman, (10) mandi ketika hendak ihram, (11) memasuki kota Makkah, (12) wukuf di Arafah, (13) bermalam di Muzdalifah, (14) melempar tiga jumrah, (15) thawaf, (16) sa'i, dan (17) memasuki kota Madinah (kota Rasulullah &#65018;).
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Mengelompokkan 17 mandi sunnah agar mudah diingat</h4>
+      <table>
+        <tr><th>Kelompok</th><th>Item</th></tr>
+        <tr><td>Terkait shalat/ibadah rutin</td><td>Jumat, dua hari raya, istisqa', gerhana bulan, gerhana matahari</td></tr>
+        <tr><td>Terkait kondisi seseorang</td><td>Setelah memandikan jenazah, baru masuk Islam, siuman dari gila/pingsan</td></tr>
+        <tr><td>Terkait rangkaian ibadah haji &amp; umrah</td><td>Ihram, masuk Makkah, wukuf Arafah, bermalam Muzdalifah, lempar jumrah, thawaf, sa'i, masuk Madinah</td></tr>
+      </table>
+
+      <h4>Catatan penting: hukumnya sunnah, bukan wajib</h4>
+      <p>Semua 17 mandi ini berstatus <b>sunnah</b> (dianjurkan), bukan mandi wajib. Artinya jika ditinggalkan, seseorang tidak berdosa dan ibadahnya (misalnya shalat Jumat atau hajinya) tetap sah, hanya kehilangan kesunnahan/keutamaan yang dianjurkan.</p>
+
+      <h4>Contoh penerapan</h4>
+      <ul>
+        <li>Mandi Jumat dilakukan sebelum berangkat shalat Jumat, agar badan bersih dan segar saat berkumpul di masjid.</li>
+        <li>Mandi setelah memandikan jenazah dianjurkan karena bersentuhan dengan jenazah, meskipun jenazah tersebut suci (bukan bangkai dalam pengertian najis).</li>
+        <li>Mandi-mandi terkait haji/umrah (poin 10&ndash;17) mengajarkan murid tahapan manasik secara berurutan, sehingga sekaligus menjadi pengantar bab manasik haji di kemudian hari.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 11 ================= -->
+<section class="fasl" id="f11">
+  <div class="fasl-head">
+    <div class="fasl-num">11</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Mengusap Khuf (Sepatu/Kaus Kaki Kulit)</div>
+      <div class="fasl-title-ar">فَصْلٌ: الْمَسْحُ عَلَى الْخُفَّيْنِ وَشَرَائِطُهُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَالْمَسْحُ عَلَى الْخُفَّيْنِ جَائِزٌ بِثَلَاثَةِ شَرَائِطَ:<br>
+      ١ـ أَنْ يَبْتَدِئَ لُبْسَهُمَا بَعْدَ كَمَالِ الطَّهَارَةِ. و٢ـ أَنْ يَكُونَا سَاتِرَيْنِ لِمَحَلِّ غَسْلِ الْفَرْضِ مِنَ الْقَدَمَيْنِ.<br>
+      و٣ـ أَنْ يَكُونَا مِمَّا يُمْكِنُ تَتَابُعُ الْمَشْيِ عَلَيْهِمَا.<br><br>
+      وَيَمْسَحُ الْمُقِيمُ يَوْماً وَلَيْلَةً، وَالْمُسَافِرُ ثَلَاثَةَ أَيَّامٍ بِلَيَالِيهِنَّ. وَابْتِدَاءُ الْمُدَّةِ مِنْ حِينِ يُحْدِثُ بَعْدَ لُبْسِ الْخُفَّيْنِ؛ فَإِنْ مَسَحَ فِي الْحَضَرِ ثُمَّ سَافَرَ، أَوْ مَسَحَ فِي السَّفَرِ ثُمَّ أَقَامَ.. أَتَمَّ مَسْحَ مُقِيمٍ.<br><br>
+      وَيَبْطُلُ الْمَسْحُ بِثَلَاثَةِ أَشْيَاءَ:<br>
+      ١ـ بِخَلْعِهِمَا. و٢ـ وَانْقِضَاءِ الْمُدَّةِ. و٣ـ وَمَا يُوجِبُ الْغُسْلَ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Mengusap dua khuf (sepatu/kaus kaki kulit yang menutup mata kaki) diperbolehkan dengan tiga syarat:<br>
+      1. Mulai memakainya dalam keadaan sudah bersuci sempurna (sudah berwudhu dahulu).<br>
+      2. Keduanya menutupi bagian kaki yang wajib dibasuh (sampai mata kaki).<br>
+      3. Keduanya memungkinkan untuk dipakai berjalan terus-menerus (kuat/tidak mudah rusak).<br><br>
+      Orang yang mukim (menetap) boleh mengusap selama sehari semalam, dan musafir selama tiga hari tiga malam. Awal perhitungan masa berlaku dihitung sejak pertama kali berhadas setelah memakai khuf. Jika seseorang mengusap ketika mukim lalu bepergian, atau mengusap ketika safar lalu menetap, maka ia menyempurnakan masa mukim (yang lebih pendek).<br><br>
+      Usapan menjadi batal karena tiga hal: (1) melepas kedua khuf, (2) habisnya masa berlaku, (3) adanya sebab yang mewajibkan mandi.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Apa itu mengusap khuf?</h4>
+      <p>Ini adalah keringanan (rukhshah) dalam bersuci: alih-alih membasuh kaki setiap kali berwudhu, seseorang cukup mengusap bagian atas khuf (sejenis sepatu/kaus kaki dari kulit yang menutup hingga mata kaki) yang sedang dipakainya, dengan syarat-syarat tertentu.</p>
+
+      <h4>Tiga syarat sah mengusap khuf</h4>
+      <ol>
+        <li>Dipakai dalam kondisi kaki sudah suci sempurna (sudah wudhu penuh termasuk basuh kaki) &mdash; bukan dipakai lalu baru berwudhu.</li>
+        <li>Khuf menutup seluruh bagian kaki yang wajib dibasuh saat wudhu (dari ujung jari sampai mata kaki), tidak berlubang di bagian yang wajib tertutup.</li>
+        <li>Bahannya cukup kuat untuk dipakai berjalan secara terus-menerus (bukan kaus kaki tipis yang mudah sobek).</li>
+      </ol>
+
+      <h4>Batas waktu mengusap</h4>
+      <table>
+        <tr><th>Status</th><th>Lama Berlaku</th></tr>
+        <tr><td>Mukim (menetap)</td><td>1 hari 1 malam (24 jam)</td></tr>
+        <tr><td>Musafir (bepergian jauh)</td><td>3 hari 3 malam (72 jam)</td></tr>
+      </table>
+      <p>Perhitungan waktu dimulai sejak hadas <b>pertama kali</b> setelah memakai khuf (bukan sejak memakainya). Jika status berubah di tengah masa (dari safar menjadi mukim, atau sebaliknya), yang berlaku adalah masa yang lebih pendek (masa mukim), demi kehati-hatian.</p>
+
+      <h4>Tiga pembatal usapan khuf</h4>
+      <ul>
+        <li><b>Melepas khuf</b> &mdash; begitu dilepas, usapan batal dan wudhu bagian kaki juga batal, harus dibasuh ulang saat wudhu berikutnya.</li>
+        <li><b>Habis masa berlaku</b> &mdash; melewati 1 hari 1 malam (mukim) atau 3 hari 3 malam (musafir).</li>
+        <li><b>Adanya sebab yang mewajibkan mandi</b> &mdash; seperti junub, karena mandi wajib mengharuskan membasuh seluruh tubuh termasuk kaki secara langsung, tidak cukup dengan usapan pada khuf.</li>
+      </ul>
+
+      <div class="note">
+        <b>Aplikasi masa kini:</b> Materi ini relevan untuk musafir, tentara, pendaki gunung, atau siapa saja yang memakai sepatu/kaus kaki tebal dalam waktu lama sehingga sulit membuka-tutup sepatu setiap wudhu.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 12 ================= -->
+<section class="fasl" id="f12">
+  <div class="fasl-head">
+    <div class="fasl-num">12</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Tayamum dan Hukum-Hukumnya</div>
+      <div class="fasl-title-ar">فَصْلٌ: التَّيَمُّمُ وَأَحْكَامُهُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَشَرَائِطُ التَّيَمُّمِ خَمْسَةُ أَشْيَاءَ:<br>
+      ١ـ وُجُودُ الْعُذْرِ، بِسَفَرٍ أَوْ مَرَضٍ. و٢ـ دُخُولُ وَقْتِ الصَّلَاةِ. و٣ـ طَلَبُ الْمَاءِ<span class="fn">(١)</span>.<br>
+      و٤ـ تَعَذُّرُ اسْتِعْمَالِهِ، وَإِعْوَازُهُ بَعْدَ الطَّلَبِ. و٥ـ التُّرَابُ الطَّاهِرُ، وَلَهُ غُبَارٌ، فَإِنْ خَالَطَهُ جِصٌّ أَوْ رَمْلٌ.. لَمْ يُجْزِ.<br><br>
+      وَفَرَائِضُهُ أَرْبَعَةُ أَشْيَاءَ:<br>
+      ١ـ النِّيَّةُ<span class="fn">(٢)</span>. و٢ـ مَسْحُ الْوَجْهِ. و٣ـ مَسْحُ الْيَدَيْنِ مَعَ الْمِرْفَقَيْنِ. و٤ـ التَّرْتِيبُ.<br><br>
+      وَسُنَنُهُ ثَلَاثَةُ أَشْيَاءَ:<br>
+      ١ـ التَّسْمِيَةُ. و٢ـ تَقْدِيمُ الْيُمْنَى عَلَى الْيُسْرَى. و٣ـ الْمُوَالَاةُ.<br><br>
+      وَالَّذِي يُبْطِلُ التَّيَمُّمَ ثَلَاثَةُ أَشْيَاءَ:<br>
+      ١ـ [كُلُّ] مَا أَبْطَلَ الْوُضُوءَ. و٢ـ رُؤْيَةُ الْمَاءِ فِي غَيْرِ وَقْتِ الصَّلَاةِ. و٣ـ الرِّدَّةُ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      <b>Syarat tayamum ada lima:</b><br>
+      1. Adanya uzur (halangan), berupa safar atau sakit.<br>
+      2. Telah masuk waktu shalat.<br>
+      3. Telah berusaha mencari air.<br>
+      4. Tidak mampu menggunakan air, atau tidak ditemukan air setelah dicari.<br>
+      5. Debu yang suci dan berdebu; jika bercampur kapur atau pasir, tidak sah digunakan.<br><br>
+      <b>Fardhu (rukun) tayamum ada empat:</b><br>
+      1. Niat. 2. Mengusap wajah. 3. Mengusap kedua tangan sampai siku. 4. Tertib (berurutan).<br><br>
+      <b>Sunnah tayamum ada tiga:</b><br>
+      1. Membaca basmalah. 2. Mendahulukan tangan kanan sebelum kiri. 3. Muwalah (berkesinambungan).<br><br>
+      <b>Yang membatalkan tayamum ada tiga:</b><br>
+      1. Segala hal yang membatalkan wudhu. 2. Melihat/menemukan air, di luar waktu shalat (sebelum shalat dimulai). 3. Murtad (keluar dari Islam).
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Apa itu tayamum?</h4>
+      <p>Tayamum adalah pengganti wudhu atau mandi wajib menggunakan debu yang suci, yang disyariatkan ketika seseorang tidak mampu menggunakan air karena uzur tertentu (sakit atau safar/dalam perjalanan yang tidak ada air).</p>
+
+      <h4>Lima syarat sah tayamum</h4>
+      <table>
+        <tr><th>No</th><th>Syarat</th><th>Penjelasan</th></tr>
+        <tr><td>1</td><td>Ada uzur</td><td>Sakit yang jika terkena air akan memperparah kondisi, atau sedang dalam perjalanan (safar) yang sulit menemukan air.</td></tr>
+        <tr><td>2</td><td>Sudah masuk waktu shalat</td><td>Tayamum tidak sah dilakukan sebelum masuk waktu shalat (berbeda dengan wudhu yang boleh dilakukan sebelum waktu shalat).</td></tr>
+        <tr><td>3</td><td>Sudah mencari air</td><td>Wajib berusaha mencari air terlebih dahulu di sekitar tempatnya berada, sesuai kemampuan.</td></tr>
+        <tr><td>4</td><td>Tidak mampu memakai air / air tidak ditemukan</td><td>Baik karena air memang tidak ada, atau ada tetapi berbahaya jika dipakai (misalnya karena sakit/luka).</td></tr>
+        <tr><td>5</td><td>Debu suci yang berdebu</td><td>Debu tanah asli yang masih memiliki partikel debu; tidak sah jika bercampur kapur, pasir murni, atau bahan lain yang tidak berdebu.</td></tr>
+      </table>
+
+      <h4>Empat fardhu (rukun) tayamum</h4>
+      <p>Berbeda dengan wudhu yang membasuh dengan air, tayamum cukup dengan <b>mengusap</b> (bukan membasuh) wajah dan kedua tangan sampai siku menggunakan debu, disertai niat dan dilakukan secara tertib.</p>
+
+      <h4>Tiga pembatal tayamum</h4>
+      <ul>
+        <li><b>Semua pembatal wudhu</b> &mdash; karena tayamum berkedudukan sebagai pengganti wudhu/mandi, maka apa pun yang membatalkan wudhu juga membatalkan tayamum.</li>
+        <li><b>Menemukan air sebelum shalat</b> &mdash; jika seseorang sudah bertayamum lalu menemukan air sebelum ia mulai shalat, tayamumnya batal dan wajib berwudhu dengan air. Namun jika ia menemukan air <i>setelah</i> shalat selesai (atau di tengah shalat menurut sebagian rincian), shalatnya tetap sah.</li>
+        <li><b>Murtad</b> &mdash; keluar dari agama Islam membatalkan status sucinya secara syar'i.</li>
+      </ul>
+
+      <div class="note">
+        <b>Perbandingan wudhu vs tayamum:</b> Satu kali tayamum pada dasarnya hanya sah untuk satu kali kewajiban shalat fardhu (menurut pendapat masyhur), berbeda dengan wudhu yang bisa dipakai untuk banyak shalat selama tidak batal. Ini penting ditekankan kepada murid agar tidak keliru menyamakan keduanya.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 13 ================= -->
+<section class="fasl" id="f13">
+  <div class="fasl-head">
+    <div class="fasl-num">13</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Penjelasan Najis dan Cara Menyucikannya</div>
+      <div class="fasl-title-ar">فَصْلٌ: بَيَانُ النَّجَاسَاتِ وَإِزَالَتِهَا</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَكُلُّ مَائِعٍ خَرَجَ مِنَ السَّبِيلَيْنِ نَجِسٌ إِلَّا الْمَنِيَّ. وَغَسْلُ جَمِيعِ الْأَبْوَالِ وَالْأَرْوَاثِ وَاجِبٌ، إِلَّا بَوْلَ الصَّبِيِّ الَّذِي لَمْ يَأْكُلِ الطَّعَامَ؛ فَإِنَّهُ يَطْهُرُ بِرَشِّ الْمَاءِ عَلَيْهِ.<br><br>
+      وَلَا يُعْفَى عَنْ شَيْءٍ مِنَ النَّجَاسَاتِ إِلَّا الْيَسِيرَ مِنَ الدَّمِ وَالْقَيْحِ. وَمَا لَا نَفْسَ لَهُ سَائِلَةٌ إِذَا وَقَعَ فِي الْإِنَاءِ وَمَاتَ فِيهِ.. فَإِنَّهُ لَا يُنَجِّسُهُ.<br><br>
+      وَالْحَيَوَانَاتُ كُلُّهَا طَاهِرٌ إِلَّا الْكَلْبَ وَالْخِنْزِيرَ وَمَا تَوَلَّدَ مِنْهُمَا أَوْ مِنْ أَحَدِهِمَا.<br><br>
+      وَالْمَيْتَةُ كُلُّهَا نَجِسَةٌ إِلَّا: ١ـ السَّمَكَ. و٢ـ الْجَرَادَ. و٣ـ الآدَمِيَّ.<br><br>
+      وَيُغْسَلُ الْإِنَاءُ مِنْ وُلُوغِ الْكَلْبِ وَالْخِنْزِيرِ سَبْعَ مَرَّاتٍ، إِحْدَاهُنَّ بِالتُّرَابِ. وَيُغْسَلُ مِنْ سَائِرِ النَّجَاسَاتِ مَرَّةً تَأْتِي عَلَيْهِ، وَالثَّلَاثَةُ أَفْضَلُ.<br><br>
+      وَإِذَا تَخَلَّلَتِ الْخَمْرَةُ بِنَفْسِهَا.. طَهُرَتْ، وَإِنْ خُلِّلَتْ بِطَرْحِ شَيْءٍ فِيهَا.. لَمْ تَطْهُرْ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Setiap cairan yang keluar dari dua jalan (qubul dan dubur) adalah najis, kecuali mani. Mencuci seluruh air kencing dan kotoran hewan/manusia hukumnya wajib, kecuali air kencing bayi laki-laki yang belum makan makanan (selain ASI); cukup disucikan dengan memercikkan air padanya.<br><br>
+      Tidak ada keringanan (dima'afkan) dari najis apa pun, kecuali sedikit darah dan nanah. Sesuatu yang tidak memiliki darah mengalir (seperti lalat, nyamuk, semut), jika jatuh ke dalam wadah lalu mati di dalamnya, tidak menajiskan wadah tersebut.<br><br>
+      Semua hewan itu suci, kecuali anjing, babi, dan hewan yang lahir dari keduanya atau dari salah satunya.<br><br>
+      Semua bangkai adalah najis, kecuali: (1) ikan, (2) belalang, (3) manusia.<br><br>
+      Wadah bekas jilatan anjing atau babi dicuci tujuh kali, salah satunya dengan tanah/debu. Wadah bekas najis lainnya cukup dicuci satu kali hingga hilang najisnya, dan tiga kali lebih utama.<br><br>
+      Apabila khamar (minuman keras) berubah menjadi cuka dengan sendirinya, maka ia menjadi suci. Namun jika diubah menjadi cuka dengan cara ditambahkan sesuatu ke dalamnya, maka tidak menjadi suci.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Cairan tubuh: mana yang najis, mana yang suci</h4>
+      <p>Kaidah dasarnya: semua yang keluar dari qubul dan dubur (kencing, tinja, madzi, wadi, darah haid/istihadhah) hukumnya najis, <b>kecuali mani</b> yang dihukumi suci (meski tetap mewajibkan mandi jika keluar).</p>
+
+      <h4>Pengecualian air kencing bayi laki-laki</h4>
+      <p>Air kencing bayi laki-laki yang belum mengonsumsi makanan padat (masih murni ASI) cukup disucikan dengan <i>memercikkan air</i> (tanpa harus dibasuh/diperas seperti najis biasa) &mdash; ini keringanan khusus. Adapun kencing bayi perempuan tetap harus dicuci seperti najis pada umumnya (tidak termasuk dalam keringanan ini menurut pendapat masyhur mazhab Syafi'i).</p>
+
+      <h4>Najis yang dimaafkan (ma'fu)</h4>
+      <p>Prinsipnya, semua najis wajib dihilangkan sebelum shalat. Namun ada pengecualian: <b>sedikit darah dan nanah</b> yang menempel di badan/pakaian dimaafkan (tidak membatalkan shalat), karena sulit dihindari &mdash; misalnya darah dari luka kecil atau jerawat. Demikian pula bangkai serangga kecil yang tidak berdarah mengalir (seperti semut, lalat, nyamuk) yang jatuh dan mati di air/makanan, tidak menajiskannya.</p>
+
+      <h4>Klasifikasi hewan: suci vs najis</h4>
+      <table>
+        <tr><th>Kategori</th><th>Status</th><th>Contoh</th></tr>
+        <tr><td>Hewan hidup pada umumnya</td><td>Suci</td><td>Kucing, sapi, ayam, kambing, dsb.</td></tr>
+        <tr><td>Anjing &amp; babi (dan turunannya)</td><td>Najis mughallazhah</td><td>Anjing, babi, hasil silangnya</td></tr>
+        <tr><td>Bangkai pada umumnya</td><td>Najis</td><td>Bangkai ayam, sapi yang mati tanpa disembelih syar'i</td></tr>
+        <tr><td>Bangkai yang dikecualikan</td><td>Suci</td><td>Ikan, belalang, dan jenazah manusia</td></tr>
+      </table>
+      <p>Ikan dan belalang dikecualikan dari hukum bangkai najis karena keduanya boleh dimakan meski mati dengan sendirinya (tanpa disembelih), berdasarkan dalil khusus. Jenazah manusia dihukumi suci sebagai bentuk kemuliaan, sekalipun wajib dimandikan sebagai penghormatan, bukan karena statusnya najis.</p>
+
+      <h4>Cara mencuci najis: tujuh kali vs satu kali</h4>
+      <ul>
+        <li><b>Najis mughallazhah (jilatan anjing/babi):</b> dicuci 7 kali, salah satunya dicampur/digosok dengan tanah/debu (biasanya pada basuhan pertama).</li>
+        <li><b>Najis mutawassithah (najis sedang, selain anjing/babi):</b> cukup dicuci sekali hingga hilang zat, warna, rasa, dan baunya; namun tiga kali lebih utama/afdhal.</li>
+      </ul>
+
+      <h4>Khamar yang berubah menjadi cuka</h4>
+      <p>Ini contoh penerapan kaidah <i>istihalah</i> (perubahan total suatu zat menjadi zat lain): jika khamar berubah menjadi cuka secara alami (tanpa campur tangan manusia, misalnya karena dibiarkan lama), statusnya berubah dari najis menjadi suci. Namun jika perubahan itu direkayasa dengan menambahkan bahan tertentu (misalnya starter cuka, garam, dll.), tetap dihukumi najis karena perubahan tersebut dianggap sebagai upaya "memanfaatkan" khamar secara tidak langsung, yang tidak diperkenankan syariat.</p>
+
+      <div class="note">
+        <b>Tips mengajar:</b> Buat tabel ringkas tiga tingkatan najis (mukhaffafah/ringan, mutawassithah/sedang, mughallazhah/berat) beserta cara membersihkannya masing-masing agar murid mudah mempraktikkan dalam kehidupan sehari-hari, misalnya membersihkan najis kencing bayi vs jilatan anjing pada pakaian.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 14 ================= -->
+<section class="fasl" id="f14">
+  <div class="fasl-head">
+    <div class="fasl-num">14</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Hukum Darah Haid, Nifas, dan Istihadhah</div>
+      <div class="fasl-title-ar">فَصْلٌ: أَحْكَامُ الدَّمِ عِنْدَ الْمَرْأَةِ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَيَخْرُجُ مِنَ الْفَرْجِ ثَلَاثَةُ دِمَاءٍ:<br>
+      ١ـ دَمُ الْحَيْضِ. و٢ـ النِّفَاسِ. و٣ـ الِاسْتِحَاضَةِ.<br><br>
+      فَالْحَيْضُ هُوَ: الدَّمُ الْخَارِجُ مِنْ فَرْجِ الْمَرْأَةِ عَلَى سَبِيلِ الصِّحَّةِ، مِنْ غَيْرِ سَبَبِ الْوِلَادَةِ، وَلَوْنُهُ أَسْوَدُ مُحْتَدِمٌ لَذَّاعٌ.<br>
+      وَالنِّفَاسُ هُوَ: الدَّمُ الْخَارِجُ عَقِبَ الْوِلَادَةِ.<br>
+      وَالِاسْتِحَاضَةُ هُوَ: الدَّمُ الْخَارِجُ فِي غَيْرِ أَيَّامِ الْحَيْضِ وَالنِّفَاسِ.<br><br>
+      وَأَقَلُّ الْحَيْضِ يَوْمٌ وَلَيْلَةٌ، وَأَكْثَرُهُ خَمْسَةَ عَشَرَ يَوْماً، وَغَالِبُهُ سِتٌّ أَوْ سَبْعٌ.<br>
+      وَأَقَلُّ النِّفَاسِ لَحْظَةٌ، وَأَكْثَرُهُ سِتُّونَ يَوْماً، وَغَالِبُهُ أَرْبَعُونَ يَوْماً.<br>
+      وَأَقَلُّ الطُّهْرِ بَيْنَ الْحَيْضَتَيْنِ خَمْسَةَ عَشَرَ يَوْماً وَلَا حَدَّ لِأَكْثَرِهِ.<br>
+      وَأَقَلُّ زَمَنٍ تَحِيضُ فِيهِ الْمَرْأَةُ تِسْعُ سِنِينَ.<br>
+      وَأَقَلُّ الْحَمْلِ سِتَّةُ أَشْهُرٍ، وَأَكْثَرُهُ أَرْبَعُ سِنِينَ، وَغَالِبُهُ تِسْعَةُ أَشْهُرٍ.<br><br>
+      وَيَحْرُمُ بِالْحَيْضِ وَالنِّفَاسِ ثَمَانِيَةُ أَشْيَاءَ:<br>
+      ١ـ الصَّلَاةُ. و٢ـ الصَّوْمُ. و٣ـ قِرَاءَةُ الْقُرْآنِ.<br>
+      و٤ـ مَسُّ الْمُصْحَفِ وَحَمْلُهُ. و٥ـ دُخُولُ الْمَسْجِدِ.<br>
+      و٦ـ الطَّوَافُ. و٧ـ الْوَطْءُ. و٨ـ الِاسْتِمْتَاعُ بِمَا بَيْنَ السُّرَّةِ وَالرُّكْبَةِ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Ada tiga jenis darah yang keluar dari kemaluan perempuan: (1) darah haid, (2) darah nifas, (3) darah istihadhah.<br><br>
+      <b>Haid</b> adalah darah yang keluar dari kemaluan perempuan secara alami sesuai kondisi sehat, bukan karena sebab melahirkan, berwarna hitam pekat dan panas menyengat.<br>
+      <b>Nifas</b> adalah darah yang keluar setelah proses melahirkan.<br>
+      <b>Istihadhah</b> adalah darah yang keluar di luar hari-hari haid dan nifas (darah penyakit).<br><br>
+      Masa haid paling sedikit sehari semalam, paling lama 15 hari, dan yang umum terjadi 6 atau 7 hari.<br>
+      Masa nifas paling sedikit sesaat/sekejap, paling lama 60 hari, dan yang umum terjadi 40 hari.<br>
+      Masa suci paling sedikit di antara dua haid adalah 15 hari, dan tidak ada batas maksimalnya.<br>
+      Usia paling muda seorang wanita bisa mengalami haid adalah 9 tahun (hitungan kalender Hijriyah/qamariyah).<br>
+      Masa kehamilan paling singkat 6 bulan, paling lama 4 tahun, dan yang umum terjadi 9 bulan.<br><br>
+      Delapan hal yang diharamkan sebab haid dan nifas:<br>
+      1. Shalat. 2. Puasa. 3. Membaca Al-Qur'an. 4. Menyentuh dan membawa mushaf. 5. Masuk masjid. 6. Thawaf. 7. Bersetubuh. 8. Bersenang-senang (bercumbu) pada area antara pusar dan lutut.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Tiga jenis darah wanita &mdash; perbedaan mendasar</h4>
+      <table>
+        <tr><th>Jenis</th><th>Sebab</th><th>Ciri Umum</th></tr>
+        <tr><td>Haid</td><td>Siklus alami bulanan (bukan melahirkan)</td><td>Warna hitam pekat, panas/menyengat, berbau khas</td></tr>
+        <tr><td>Nifas</td><td>Setelah melahirkan</td><td>Keluar pasca persalinan</td></tr>
+        <tr><td>Istihadhah</td><td>Gangguan/penyakit rahim, di luar masa haid &amp; nifas</td><td>Tidak mengikuti pola siklus normal; wanita tetap wajib shalat &amp; puasa (dengan tata cara seperti orang berhadas kecil terus-menerus)</td></tr>
+      </table>
+
+      <h4>Batas-batas waktu penting (tabel hafalan)</h4>
+      <table>
+        <tr><th>Ukuran</th><th>Paling Sedikit</th><th>Paling Lama</th><th>Umumnya</th></tr>
+        <tr><td>Masa haid</td><td>1 hari 1 malam</td><td>15 hari</td><td>6&ndash;7 hari</td></tr>
+        <tr><td>Masa nifas</td><td>Sekejap/sesaat</td><td>60 hari</td><td>40 hari</td></tr>
+        <tr><td>Masa suci antar-haid</td><td>15 hari</td><td>Tidak terbatas</td><td>&ndash;</td></tr>
+        <tr><td>Usia mulai bisa haid</td><td>9 tahun (Hijriyah)</td><td>&ndash;</td><td>&ndash;</td></tr>
+        <tr><td>Masa kehamilan</td><td>6 bulan</td><td>4 tahun</td><td>9 bulan</td></tr>
+      </table>
+      <p>Batasan-batasan ini sangat penting secara praktis karena menentukan status hukum darah yang keluar: misalnya jika darah keluar lebih dari 15 hari berturut-turut, kelebihan dari 15 hari tersebut dihukumi istihadhah, bukan lagi haid, sehingga wanita tersebut wajib kembali shalat meski darah masih keluar (dengan tata cara khusus mustahadhah).</p>
+
+      <h4>Delapan larangan saat haid &amp; nifas</h4>
+      <ol>
+        <li><b>Shalat</b> &mdash; tidak wajib dan tidak sah dikerjakan, serta tidak perlu di-qadha' setelah suci.</li>
+        <li><b>Puasa</b> &mdash; tidak sah dikerjakan, namun <i>wajib di-qadha'</i> (diganti) setelah suci di luar bulan Ramadhan.</li>
+        <li><b>Membaca Al-Qur'an</b> &mdash; dengan lisan secara sengaja (berdasarkan pendapat masyhur mazhab Syafi'i; adapun membaca dalam hati tanpa suara tetap diperbolehkan).</li>
+        <li><b>Menyentuh &amp; membawa mushaf</b> &mdash; kecuali dengan penghalang atau untuk kepentingan belajar (rincian lebih lanjut ada di bab lain).</li>
+        <li><b>Masuk masjid</b> &mdash; terlebih jika dikhawatirkan mengotori masjid; sekadar lewat tanpa menetap diperselisihkan ulama.</li>
+        <li><b>Thawaf</b> &mdash; baik thawaf wajib maupun sunnah.</li>
+        <li><b>Bersetubuh (jima')</b> &mdash; hukumnya haram bagi suami-istri selama masa haid/nifas.</li>
+        <li><b>Bersenang-senang pada area pusar hingga lutut</b> &mdash; sebagai bentuk kehati-hatian (ihtiyath) agar tidak terjerumus pada larangan jima' itu sendiri.</li>
+      </ol>
+
+      <div class="note">
+        <b>Catatan pengajaran:</b> Materi ini sangat penting diajarkan secara khusus kepada santriwati dengan bahasa yang santun dan jelas, karena berkaitan langsung dengan ibadah harian (shalat &amp; puasa) yang sering dialami. Ajak murid membuat kalender pribadi masa haid untuk memahami penerapan batas-batas di atas secara konkret.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASAL 15 ================= -->
+<section class="fasl" id="f15">
+  <div class="fasl-head">
+    <div class="fasl-num">15</div>
+    <div class="fasl-titles">
+      <div class="fasl-title-id">Larangan bagi Orang Junub dan Orang Berhadas</div>
+      <div class="fasl-title-ar">فَصْلٌ: مَا يَحْرُمُ عَلَى الْجُنُبِ وَالْمُحْدِثِ فِعْلُهُ</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Teks Arab</div>
+    <div class="arabic-box">
+      وَيَحْرُمُ عَلَى الْجُنُبِ خَمْسَةُ أَشْيَاءَ:<br>
+      ١ـ الصَّلَاةُ. و٢ـ قِرَاءَةُ الْقُرْآنِ. و٣ـ مَسُّ الْمُصْحَفِ وَحَمْلُهُ وَالطَّوَافُ. و٤ـ اللُّبْثُ فِي الْمَسْجِدِ<span class="fn">(١)</span>.<br><br>
+      وَيَحْرُمُ عَلَى الْمُحْدِثِ ثَلَاثَةُ أَشْيَاءَ:<br>
+      ١ـ الصَّلَاةُ. و٢ـ الطَّوَافُ. و٣ـ مَسُّ الْمُصْحَفِ وَحَمْلُهُ.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Terjemahan</div>
+    <div class="translate-box">
+      Diharamkan bagi orang yang junub (berhadas besar) empat hal:<br>
+      1. Shalat. 2. Membaca Al-Qur'an. 3. Menyentuh dan membawa mushaf, serta thawaf. 4. Berdiam diri (menetap) di dalam masjid.<br><br>
+      Diharamkan bagi orang yang berhadas kecil (belum berwudhu) tiga hal:<br>
+      1. Shalat. 2. Thawaf. 3. Menyentuh dan membawa mushaf.
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Penjelasan &amp; Keterangan untuk Pengajaran</div>
+    <div class="explain-box">
+      <h4>Tabel perbandingan: junub vs berhadas kecil</h4>
+      <table>
+        <tr><th>Larangan</th><th>Orang Junub (hadas besar)</th><th>Orang Berhadas Kecil</th></tr>
+        <tr><td>Shalat</td><td>Haram</td><td>Haram</td></tr>
+        <tr><td>Thawaf</td><td>Haram</td><td>Haram</td></tr>
+        <tr><td>Menyentuh/membawa mushaf</td><td>Haram</td><td>Haram</td></tr>
+        <tr><td>Membaca Al-Qur'an (lisan)</td><td>Haram</td><td>Boleh (tidak haram)</td></tr>
+        <tr><td>Berdiam lama di masjid</td><td>Haram</td><td>Boleh</td></tr>
+      </table>
+
+      <h4>Penjelasan poin pembeda</h4>
+      <p>Perbedaan mendasar antara junub dan berhadas kecil terletak pada dua hal tambahan yang khusus diharamkan bagi orang junub, yaitu: <b>membaca Al-Qur'an dengan lisan</b> dan <b>berdiam (i'tikaf/menetap) di dalam masjid</b>. Orang yang hanya berhadas kecil (misalnya belum berwudhu setelah kentut) tetap boleh membaca Al-Qur'an dan duduk-duduk di masjid, sedangkan orang junub tidak diperbolehkan melakukan keduanya sampai ia mandi wajib.</p>
+
+      <h4>Catatan tambahan tentang lewat di masjid</h4>
+      <p>Orang junub yang sekadar lewat di masjid (tidak menetap/berdiam), misalnya untuk mengambil sesuatu lalu segera keluar, umumnya diperbolehkan menurut sebagian pendapat dalam mazhab Syafi'i, selama tidak dikhawatirkan mengotori masjid. Namun berdiam/duduk-duduk (lubuts) di dalamnya tetap terlarang sampai ia mandi.</p>
+
+      <div class="note">
+        <b>Kesimpulan bab Thaharah:</b> Fasal ini menjadi penutup yang baik untuk merangkum keseluruhan kitab Thaharah &mdash; menegaskan bahwa tujuan akhir dari seluruh pembahasan air, wudhu, mandi, tayamum, dan najis adalah agar seorang muslim dapat beribadah (shalat, membaca Qur'an, thawaf, dsb.) dalam keadaan suci lahir dan batin.
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<a id="backTop" href="#top" title="Kembali ke atas">&uarr;</a>
+
+<footer>
+  <div>&copy; 2026 by Achmad Fauzi &middot; Email: vaozeei@gmail.com</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function(){
+  var btn = document.getElementById('backTop');
+  if(window.scrollY > 400){ btn.classList.add('show'); } else { btn.classList.remove('show'); }
+});
+</script>
+
+</body>
+</html>
